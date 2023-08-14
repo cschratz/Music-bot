@@ -25,20 +25,20 @@ const player = new Player(client);
 player.extractors.loadDefault().then(r => console.log('Extractors loaded successfully'))
 
 // Still needs to be refactored for 0.6
-player.events.on('connection', (queue) => {
-    queue.connection.connec.voiceConnection.on('stateChange', (oldState, newState) => {
-      const oldNetworking = Reflect.get(oldState, 'networking');
-      const newNetworking = Reflect.get(newState, 'networking');
+// player.events.on('connection', (queue) => {
+//     queue.connection.connec.voiceConnection.on('stateChange', (oldState, newState) => {
+//       const oldNetworking = Reflect.get(oldState, 'networking');
+//       const newNetworking = Reflect.get(newState, 'networking');
 
-      const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
-        const newUdp = Reflect.get(newNetworkState, 'udp');
-        clearInterval(newUdp?.keepAliveInterval);
-      }
+//       const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
+//         const newUdp = Reflect.get(newNetworkState, 'udp');
+//         clearInterval(newUdp?.keepAliveInterval);
+//       }
 
-      oldNetworking?.off('stateChange', networkStateChangeHandler);
-      newNetworking?.on('stateChange', networkStateChangeHandler);
-    });
-});
+//       oldNetworking?.off('stateChange', networkStateChangeHandler);
+//       newNetworking?.on('stateChange', networkStateChangeHandler);
+//     });
+// });
 
 player.events.on('audioTrackAdd', (queue, song) => {
     queue.metadata.channel.send(`🎶 | Song **${song.title}** added to the queue!`);
@@ -69,7 +69,7 @@ player.events.on('error', (queue, error) => {
 });
 
 // For debugging
-/*player.on('debug', async (message) => {
+player.on('debug', async (message) => {
     console.log(`General player debug event: ${message}`);
 });
 
@@ -80,7 +80,7 @@ player.events.on('debug', async (queue, message) => {
 player.events.on('playerError', (queue, error) => {
     console.log(`Player error event: ${error.message}`);
     console.log(error);
-});*/
+});
 
 client.on('ready', function () {
     console.log('Ready!');
