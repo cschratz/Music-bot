@@ -25,7 +25,7 @@ const player = new Player(client);
 player.extractors.loadDefault().then(r => console.log('Extractors loaded successfully'))
 
 // Still needs to be refactored for 0.6
-/*player.events.on('connection', (queue) => {
+player.events.on('connection', (queue) => {
     queue.connection.connec.voiceConnection.on('stateChange', (oldState, newState) => {
       const oldNetworking = Reflect.get(oldState, 'networking');
       const newNetworking = Reflect.get(newState, 'networking');
@@ -38,7 +38,7 @@ player.extractors.loadDefault().then(r => console.log('Extractors loaded success
       oldNetworking?.off('stateChange', networkStateChangeHandler);
       newNetworking?.on('stateChange', networkStateChangeHandler);
     });
-});*/
+});
 
 player.events.on('audioTrackAdd', (queue, song) => {
     queue.metadata.channel.send(`🎶 | Song **${song.title}** added to the queue!`);
